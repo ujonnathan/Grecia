@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futura Enfermera | Digital Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --accent-color: #ff2a3b; /* Rojo Rock/Emo Vibrante */
+            --accent-hover: #cc1122;
+            --text-color: #ffffff;
+            --text-secondary: #a6a6a6;
+            --border-glow: rgba(255, 42, 59, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 40px;
+        }
+
+        /* Cabecera / Perfil */
+        .profile-header {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .profile-img-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-img {
+            width: 115px;
+            height: 115px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            object-fit: cover;
+            box-shadow: 0 0 20px var(--border-glow);
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            border: 2px solid var(--bg-color);
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 12px 0 4px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .username {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .bio {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.4;
+            max-width: 320px;
+            margin: 0 auto 15px auto;
+        }
+
+        /* Contador de días de enfermería */
+        .counter-box {
+            background: linear-gradient(135deg, #161616, #222222);
+            border: 1px solid rgba(255, 42, 59, 0.15);
+            padding: 10px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .counter-box i {
+            color: var(--accent-color);
+        }
+
+        /* Títulos de Sección */
+        .section-title {
+            align-self: flex-start;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-color);
+            margin: 25px 0 12px 4px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Contenedor de Enlaces */
+        .links-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-item {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .link-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+            box-shadow: 0 6px 15px rgba(255, 42, 59, 0.15);
+            background-color: #222;
+        }
+
+        .link-item i:first-child {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            width: 24px;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        .link-item .arrow-icon {
+            margin-left: auto;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: transform 0.2s;
+        }
+
+        .link-item:hover .arrow-icon {
+            transform: translateX(3px);
+            color: var(--text-color);
+        }
+
+        /* Herramienta de Cálculo Clínico (Sustituto Seguro del Horario) */
+        .calc-widget {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 20px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .calc-widget h3 {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .calc-widget h3 i {
+            color: var(--accent-color);
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .input-group input {
+            background-color: #0f0f0f;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 8px 10px;
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .calc-btn {
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.88rem;
+            transition: background-color 0.2s;
+        }
+
+        .calc-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .calc-result {
+            margin-top: 12px;
+            padding: 10px;
+            background-color: #0f0f0f;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            border-left: 3px solid var(--accent-color);
+            display: none;
+        }
+
+        /* Widget de Música */
+        .music-player {
+            width: 100%;
+            margin-top: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        footer i {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="profile-header">
+            <div class="profile-img-container">
+                <img src="perfil.jpg" alt="Foto de Perfil" class="profile-img">
+                <span class="status-badge"><i class="fa-solid fa-heart-pulse"></i></span>
+            </div>
+            <h1>El bunker de Grecia</h1>
+            <div class="username">@empanadasonora</div>
+            <p class="bio">Estudiante de 1er Semestre de Enfermería. Salvando vidas con actitud y buena música. 🩺🎸</p>
+        </div>
+
+        <div class="counter-box">
+            <i class="fa-solid fa-hourglass-half"></i>
+            <span id="nursing-days">Cargando trayectoria clínica...</span>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-user-nurse"></i> Mi Maletín Digital
+        </div>
+        
+        <div class="links-list">
+            <a href="https://drive.google.com/tu-enlace-aqui" target="_blank" class="link-item">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>Apuntes y PDFs de Anatomía</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://quizlet.com/tu-enlace-aqui" target="_blank" class="link-item">
+                <i class="fa-solid fa-brain"></i>
+                <span>Flashcards de Repaso (Quizlet)</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://notion.so/tu-enlace-aqui" target="_blank" class="link-item">
+                <i class="fa-solid fa-book-medical"></i>
+                <span>Diario Clínico & Notas</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-calculator"></i> Herramientas Clínicas Pro
+        </div>
+
+        <div class="calc-widget">
+            <h3><i class="fa-solid fa-droplet"></i> Calculador de Macrogoteo</h3>
+            <div class="calc-grid">
+                <div class="input-group">
+                    <label for="volume">Volumen (ml)</label>
+                    <input type="number" id="volume" placeholder="Ej: 500" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="hours">Tiempo (Horas)</label>
+                    <input type="number" id="hours" placeholder="Ej: 8" min="1">
+                </div>
+            </div>
+            <button class="calc-btn" onclick="calculateGotes()">Calcular Velocidad</button>
+            <div id="result-box" class="calc-result"></div>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-laptop-medical"></i> Enlaces Clínicos
+        </div>
+        
+        <div class="links-list">
+            <a href="https://www.vademecum.es/" target="_blank" class="link-item">
+                <i class="fa-solid fa-pills"></i>
+                <span>Vademécum Farmacológico</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-music"></i> Focus Playlist
+        </div>
+        
+        <div class="music-player">
+            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1dX82ZLI7Z6mK8?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+        <footer>
+            Hecho con <i class="fa-solid fa-heart"></i> para la mejor enfermera
+        </footer>
+
+    </div>
+
+    <script>
+        // 1. Script de la Calculadora de Goteo (Fórmula estándar clínica: Gotas/min = Volumen / (Horas * 3))
+        function calculateGotes() {
+            const volumen = parseFloat(document.getElementById('volume').value);
+            const horas = parseFloat(document.getElementById('hours').value);
+            const resultBox = document.getElementById('result-box');
+
+            if (volumen > 0 && horas > 0) {
+                const gotasPorMinuto = Math.round(volumen / (horas * 3));
+                resultBox.innerHTML = `Administrar a: <strong>${gotasPorMinuto} gotas/min</strong> (Macrogoteo)`;
+                resultBox.style.display = 'block';
+            } else {
+                resultBox.innerHTML = "⚠️ Por favor, ingresa valores válidos.";
+                resultBox.style.display = 'block';
+            }
+        }
+
+        // 2. Contador dinámico de días desde que inició la carrera
+        // Cambia esta fecha por el día real en que ella inició el 1er semestre (Formato: Año, Mes-1, Día)
+        // Ejemplo: 15 de Febrero de 2026 -> new Date(2026, 1, 15) [Enero es 0, Febrero es 1...]
+        const fechaInicioSemestre = new Date(2026, 1, 15); 
+        
+        function updateDaysCount() {
+            const hoy = new Date();
+            const diferenciaTiempo = hoy - fechaInicioSemestre;
+            const diasTranscurridos = Math.floor(diferenciaTiempo / (1000 * 60 * 60 * 24));
+            
+            const elementoContador = document.getElementById('nursing-days');
+            if (diasTranscurridos >= 0) {
+                elementoContador.innerHTML = `Lleva <strong>${diasTranscurridos} días</strong> construyendo su sueño`;
+            } else {
+                elementoContador.innerHTML = `Faltan <strong>${Math.abs(diasTranscurridos)} días</strong> para iniciar el gran viaje`;
+            }
+        }
+        
+        updateDaysCount();
+    </script>
+</body>
+</html>
